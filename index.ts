@@ -4,6 +4,7 @@ import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 export const appRoute = express();
+import router from "./routes/auth";
 
 appRoute.use(cors());
 appRoute.use((req: Request, res: Response, next: NextFunction) => {
@@ -17,4 +18,4 @@ appRoute.use((req: Request, res: Response, next: NextFunction) => {
 appRoute.use(express.json({ limit: "50mb" }));
 appRoute.use(express.urlencoded({ limit: "50mb", extended: true }));
 appRoute.use(cookieParser());
-// appRoute.use(express.json());
+appRoute.use("/auth", router);

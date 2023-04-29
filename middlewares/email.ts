@@ -1,8 +1,5 @@
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
-import fs from "fs";
-import path from "path";
-// const handlebars = require("handlebars");
 dotenv.config();
 
 export const sendEmail = async (email: any, subject: any, text: any) => {

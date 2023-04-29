@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { isEmail } from "validator";
+const { isEmail } = require("validator");
 const Schema = mongoose.Schema;
 
 const auth = new Schema(
@@ -22,4 +22,5 @@ const auth = new Schema(
   { timestamps: true }
 );
 
-export const userAuth = mongoose.model("user", auth);
+const userAuth = mongoose.model("user", auth);
+export default userAuth;
