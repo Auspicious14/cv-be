@@ -48,7 +48,7 @@ export const forgetPassword = async (req: Request, res: Response) => {
   const { email } = req.body;
 
   try {
-    const user: any = await userAuth.find(email);
+    const user: any = await userAuth.findOne({ email });
     if (!user) res.json({ message: "Account is not registered" });
     const { otp, otpDate } = generateOTP();
     user.manageOTP.otp = otp;
@@ -60,7 +60,7 @@ export const forgetPassword = async (req: Request, res: Response) => {
 
     res.json({
       success: true,
-      message: `Check your mail for your verification code`,
+      message: `An OTP has been sent to your mail. Check your mail for your verification code`,
     });
   } catch (error) {
     const errors = handleErrors(error);
@@ -68,15 +68,24 @@ export const forgetPassword = async (req: Request, res: Response) => {
   }
 };
 export const verifyOTP = async (req: Request, res: Response) => {
-  const { email, otp } = req.body;
+  const { email, otp: userOtp } = req.body;
 
   try {
-    const user: any = await userAuth.find(email);
+    const user: any = await userAuth.findOne({ email });
     if (!user) res.json({ message: "Account is not registered" });
 
-    const { otp: userOtp, otpDate } = user.manageOTP;
-    if (userOtp !== otp)
+    const { otp, otpDate } = user.manageOTP;
+    const expiryDate = otpDate + 60 * 60 * 1000;
+
+    if (otp !== userOtp)
       res.json({ success: false, message: "Invalid Verification code!" });
+
+    if (expiryDate < Date.now())
+      return res.json({
+        success: false,
+        message: "OTP expired",
+      });
+
     user.manageOTP = {};
     await user.save();
 
@@ -92,7 +101,9 @@ export const resetPassword = async (req: Request, res: Response) => {
   try {
     const user: any = await userAuth.findOne({ email });
     const verifyPassword = await argon2.verify(user?.password, newPassword);
+
     if (verifyPassword) res.json({ message: "You entered your old password" });
+
     const newPass = await argon2.hash(newPassword);
     user.password = newPass;
     await user.save();
@@ -120,12 +131,15 @@ export const updateUser = async (req: Request, res: Response) => {
   let { firstName, lastName, email, password } = req.body;
   try {
     if (password) password = await argon2.hash(password);
+
     const user: any = await userAuth.findByIdAndUpdate(
       id,
       { $set: { firstName, lastName, email, password } },
       { new: true }
     );
+
     if (!user) res.json({ status: "-1", message: "No user matched" });
+
     res.json({
       success: true,
       data: {
