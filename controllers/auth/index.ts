@@ -148,7 +148,6 @@ export const updateUser = async (req: Request, res: Response) => {
           firstName: user?.firstName,
           lastName: user?.lastName,
           email: user?.email,
-          isAdmin: user?.isAdmin,
           createdAt: user?.createdAt,
           updatedAt: user?.updatedAt,
         },
