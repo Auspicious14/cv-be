@@ -8,7 +8,18 @@ cloudinary.config({
 });
 
 export const upLoadFile = async (file: any, fileName?: any) => {
-  const uri = await cloudinary.uploader.upload(file, { public_id: fileName });
-
+  const uri = await cloudinary.uploader.upload(file, {
+    public_id: fileName,
+    eager: [
+      {
+        width: 500,
+        height: 500,
+        gravity: "faces",
+        quality: "auto",
+        fetch_format: "auto",
+        crop: "thumb",
+      },
+    ],
+  });
   return uri?.secure_url;
 };
