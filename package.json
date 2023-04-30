@@ -19,6 +19,7 @@
     "@types/validator": "^13.7.15",
     "argon": "^2.0.21",
     "argon2": "^0.30.3",
+    "cloudinary": "^1.36.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
