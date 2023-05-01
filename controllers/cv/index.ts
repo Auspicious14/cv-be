@@ -4,26 +4,44 @@ import { handleErrors } from "../../middlewares/errorHandler";
 import { upLoadFile } from "../../middlewares/file";
 
 export const createCV = async (req: Request, res: Response) => {
+  const { personalInformation, academic, certificate, experience, skill } =
+    req.body;
   const {
-    personalInformation,
-    academic,
-    certificate,
-    experience,
-    skill,
     image,
-  } = req.body;
-  // const {firstName, lastName, email, dateOfBirth} = personalInformation
-  console.log(req.body);
+    firstName,
+    lastName,
+    email,
+    description,
+    address,
+    profession,
+    phoneNumber,
+    state,
+    city,
+    country,
+  } = personalInformation;
+  let { uri, name, type } = image;
   try {
+    const file = await upLoadFile(uri, name);
     const cv: any = await CVModel.create({
-      personalInformation,
+      personalInformation: {
+        firstName,
+        lastName,
+        email,
+        description,
+        address,
+        profession,
+        phoneNumber,
+        state,
+        city,
+        country,
+        image: { uri: file, name, type },
+      },
       academic,
       certificate,
+      image,
       experience,
       skill,
-      image,
     });
-    console.log(cv);
     res.json({ success: true, data: cv });
   } catch (error) {
     const errors = handleErrors(error);

@@ -10,6 +10,7 @@ const CVSchema = new Schema(
       lastName: { type: String, required: true },
       email: { type: String, required: true, unique: true, validate: isEmail },
       dateOfBirth: { type: String },
+      description: { type: String },
       phoneNumber: { type: String },
       address: { type: String },
       profession: { type: String },
