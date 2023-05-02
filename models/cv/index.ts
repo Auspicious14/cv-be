@@ -5,6 +5,11 @@ const Schema = mongoose.Schema;
 
 const CVSchema = new Schema(
   {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
     personalInformation: {
       firstName: { type: String, required: true },
       lastName: { type: String, required: true },
@@ -27,6 +32,7 @@ const CVSchema = new Schema(
       {
         jobTitle: { type: String },
         description: { type: String },
+        location: { type: String },
         company: { type: String },
         fromDate: { type: String },
         toDate: { type: String },

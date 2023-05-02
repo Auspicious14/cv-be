@@ -15,7 +15,7 @@ export const signUp = async (req: Request, res: Response) => {
       email,
       password: pass,
     });
-    res.json({ message: "success", success: true, data: user });
+    res.json({ message: "success", success: true });
   } catch (error) {
     const errors = handleErrors(error);
     res.json({ message: errors });
@@ -33,6 +33,7 @@ export const login = async (req: Request, res: Response) => {
       message: "success",
       success: true,
       data: {
+        _id: user?._id,
         firstName: user?.firstName,
         lastName: user?.lastName,
         email: user?.email,

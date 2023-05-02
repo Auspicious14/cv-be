@@ -5,6 +5,6 @@ const cvRoute = express.Router();
 
 cvRoute.post("/cv", createCV);
 cvRoute.post("/cv/:id", updateCV);
-cvRoute.get("/cv", getUSerCV);
+cvRoute.get("/cv/:id", getUSerCV);
 
 export default cvRoute;

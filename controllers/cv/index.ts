@@ -7,6 +7,7 @@ export const createCV = async (req: Request, res: Response) => {
   const { personalInformation, academic, certificate, experience, skill } =
     req.body;
   const {
+    _id,
     image,
     firstName,
     lastName,
@@ -36,6 +37,7 @@ export const createCV = async (req: Request, res: Response) => {
         country,
         image: { uri: file, name, type },
       },
+      userId: _id,
       academic,
       certificate,
       image,
@@ -50,37 +52,38 @@ export const createCV = async (req: Request, res: Response) => {
 };
 
 export const updateCV = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { id }: any = req.params;
   const {
     personalInformation,
     academic,
     certificate,
-    image,
+    // image,
     experience,
     skill,
   } = req.body;
   //   const { firstName, lastName, email, dateOfBirth } = personalInformation;
-  //   const [{school, course, fromDate, toDate}] =academic
-  const { uri, name, type } = image;
-
+  // const [{school, course, fromDate, toDate}] =academic
+  // const { uri, name, type } = image;
+  console.log(academic);
   try {
-    const file = await upLoadFile(uri, name);
-    const cv = await CVModel.findByIdAndUpdate(
-      id,
+    // const file = await upLoadFile(uri, name);
+    const cv = await CVModel.findOneAndUpdate(
+      { userId: id },
       {
         $set: {
           personalInformation,
           academic,
           certificate,
-          image: { file, type },
+          // image: { file, type },
           experience,
           skill,
         },
       },
       { new: true }
     );
-    if (id !== cv?.id) res.json({ success: false, message: "CV not found" });
-
+    if (id !== cv?.userId.toString())
+      res.json({ success: false, message: "CV not found" });
+    console.log(cv);
     res.json({ success: true, data: cv });
   } catch (error) {
     const errors = handleErrors(error);
@@ -92,7 +95,7 @@ export const getUSerCV = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    const cv: any = await CVModel.findById(id);
+    const cv: any = await CVModel.findOne({ userId: id });
 
     if (!cv) res.json({ success: false, message: "User CV not found" });
 
