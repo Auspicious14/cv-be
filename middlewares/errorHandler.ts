@@ -6,9 +6,9 @@ export const handleErrors = (error: any) => {
     errors.email = "Email already registered";
     return errors;
   }
-  if (message.includes("userAuth validation  failed")) {
-    Object.values(error.errors).map((err: any) => {
-      errors[err.properties.path] = err.properties.message;
+  if (message?.includes("userAuth validation  failed")) {
+    Object?.values(error.errors).map((err: any) => {
+      errors[err.properties.path] = err?.properties?.message;
     });
   }
 };

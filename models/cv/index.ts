@@ -41,13 +41,22 @@ const CVSchema = new Schema(
     academic: [
       {
         school: { type: String },
+        degree: { type: String },
         course: { type: String },
         fromDate: { type: String },
         toDate: { type: String },
       },
     ],
-    certificate: [{ name: { type: String }, year: { type: String } }],
+    certificate: [
+      {
+        name: { type: String },
+        year: { type: String },
+        school: { type: String },
+        description: { type: String },
+      },
+    ],
     skill: [{ name: String }],
+    language: [{ name: String }],
   },
   { timestamps: true }
 );

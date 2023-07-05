@@ -61,10 +61,6 @@ export const updateCV = async (req: Request, res: Response) => {
     experience,
     skill,
   } = req.body;
-  //   const { firstName, lastName, email, dateOfBirth } = personalInformation;
-  // const [{school, course, fromDate, toDate}] =academic
-  // const { uri, name, type } = image;
-  console.log(academic);
   try {
     // const file = await upLoadFile(uri, name);
     const cv = await CVModel.findOneAndUpdate(
