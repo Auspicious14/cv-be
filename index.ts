@@ -5,7 +5,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 export const appRoute = express();
 import router from "./routes/auth";
-import CVRouter from "./routes/cv";
+import cvRouter from "./routes/cv";
+import guestRouter from "./routes/guest";
 
 appRoute.use(cors());
 appRoute.use((req: Request, res: Response, next: NextFunction) => {
@@ -20,4 +21,5 @@ appRoute.use(express.json({ limit: "50mb" }));
 appRoute.use(express.urlencoded({ limit: "50mb", extended: true }));
 appRoute.use(cookieParser());
 appRoute.use("/auth", router);
-appRoute.use(CVRouter);
+appRoute.use(cvRouter);
+appRoute.use("/guest", guestRouter);

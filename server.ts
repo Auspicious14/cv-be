@@ -1,17 +1,15 @@
-const dotenv = require("dotenv");
-dotenv.config();
 import express from "express";
-const app = express();
-const mongoose = require("mongoose");
-import { appRoute } from "./index";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
 
+import { appRoute } from "./index";
+const app = express();
+dotenv.config();
 const port = process.env.PORT || 5000;
-const URI = process.env.MONGODB_URL;
+const URI: string = process.env.MONGODB_URL || "";
 mongoose
-  .connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(URI)
   .then(() =>
     app.listen(port, () => console.log(`server is listening on port ${port}`))
   )
   .catch((err: any) => console.log(err));
-
-app.use(appRoute);
