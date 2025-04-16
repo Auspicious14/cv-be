@@ -10,6 +10,7 @@ const CVSchema = new Schema(
       ref: "user",
       required: true,
     },
+    isGuestCV: { type: Boolean, default: false },
     personalInformation: {
       firstName: { type: String, required: true },
       lastName: { type: String, required: true },
