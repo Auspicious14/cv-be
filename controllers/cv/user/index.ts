@@ -77,7 +77,7 @@ export const updateCV = async (req: Request, res: Response) => {
       },
       { new: true }
     );
-    if (id !== cv?.userId.toString())
+    if (id !== cv?.userId?.toString())
       res.json({ success: false, message: "CV not found" });
     console.log(cv);
     res.json({ success: true, data: cv });

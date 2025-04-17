@@ -74,7 +74,7 @@ export const createEnhancedCV = async (req: Request, res: Response) => {
         country,
         image: imageData,
       },
-      userId: _id,
+      userId: (req as any).user?._id, // Get from authenticated user context
       academic,
       certificate,
       experience: enhancedExperience,
@@ -84,7 +84,13 @@ export const createEnhancedCV = async (req: Request, res: Response) => {
     res.json({ success: true, data: cv });
   } catch (error) {
     const errors = handleErrors(error);
-    res.json({ success: false, errors });
+    res.status(400).json({
+      success: false,
+      errors: {
+        message: "Validation failed",
+        details: errors,
+      },
+    });
   }
 };
 
@@ -136,13 +142,19 @@ export const updateEnhancedCV = async (req: Request, res: Response) => {
       { new: true }
     );
 
-    if (!cv || id !== cv.userId.toString()) {
+    if (!cv || id !== cv?.userId?.toString()) {
       return res.json({ success: false, message: "CV not found" });
     }
 
     res.json({ success: true, data: cv });
   } catch (error) {
     const errors = handleErrors(error);
-    res.json({ success: false, errors });
+    res.status(400).json({
+      success: false,
+      errors: {
+        message: "Validation failed",
+        details: errors,
+      },
+    });
   }
 };

@@ -6,20 +6,20 @@ import cookieParser from "cookie-parser";
 export const appRoute = express();
 import router from "./routes/auth";
 import cvRouter from "./routes/cv";
-import guestRouter from "./routes/guest";
+import aiSuggestionRouter from "./routes/suggestion";
 
-appRoute.use(cors());
-appRoute.use((req: Request, res: Response, next: NextFunction) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow_Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+appRoute.use(
+  cors({
+    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
+
 appRoute.use(express.json({ limit: "50mb" }));
 appRoute.use(express.urlencoded({ limit: "50mb", extended: true }));
 appRoute.use(cookieParser());
 appRoute.use("/auth", router);
 appRoute.use(cvRouter);
-appRoute.use("/guest", guestRouter);
+appRoute.use(aiSuggestionRouter);

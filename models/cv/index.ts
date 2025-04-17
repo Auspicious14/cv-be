@@ -8,7 +8,7 @@ const CVSchema = new Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
-      required: true,
+      required: false,
     },
     isGuestCV: { type: Boolean, default: false },
     personalInformation: {

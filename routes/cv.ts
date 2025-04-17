@@ -1,9 +1,5 @@
 import express from "express";
-import { createCV, updateCV, getUSerCV } from "../controllers/cv/user";
-import {
-  createEnhancedCV,
-  updateEnhancedCV,
-} from "../controllers/cv/user/enhanced";
+
 import { getCV } from "../controllers/cv/cv";
 import { getAcademic, updateAcademic } from "../controllers/cv/academic";
 import {
@@ -17,15 +13,6 @@ import {
 } from "../controllers/cv/personal";
 
 const cvRoute = express.Router();
-
-// Standard CV endpoints
-cvRoute.post("/cv", createCV);
-cvRoute.post("/cv/:id", updateCV);
-cvRoute.get("/cv/:id", getUSerCV);
-
-// AI-enhanced CV endpoints
-cvRoute.post("/cv/enhanced", createEnhancedCV);
-cvRoute.post("/cv/enhanced/:id", updateEnhancedCV);
 
 // Section-specific routes
 cvRoute.post("/cv/personal", createPersonalInfo);
