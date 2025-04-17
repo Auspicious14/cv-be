@@ -4,7 +4,7 @@ import {
   createEnhancedCV,
   updateEnhancedCV,
 } from "../controllers/cv/user/enhanced";
-import { getCVSections } from "../controllers/cv/sections.controller";
+import { getCV } from "../controllers/cv/cv";
 import { getAcademic, updateAcademic } from "../controllers/cv/academic";
 import {
   getCertificate,
@@ -36,6 +36,6 @@ cvRoute.put("/cv/:cvId/certificate", updateCertificate);
 cvRoute.get("/cv/:cvId/certificate", getCertificate);
 cvRoute.put("/cv/:cvId/experience", updateExperience);
 cvRoute.get("/cv/:cvId/experience", getExperience);
-cvRoute.get("/cv/:cvId/sections", getCVSections);
+cvRoute.get("/cv/:cvId", getCV);
 
 export default cvRoute;
