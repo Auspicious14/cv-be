@@ -3,7 +3,7 @@ import CVModel from "../../models/cv";
 import { handleErrors } from "../../middlewares/errorHandler";
 
 export const updateAcademic = async (req: Request, res: Response) => {
-  const { academic } = req.body;
+  const academic = req.body;
   const { cvId } = req.params;
   const userId = (req as any).user?._id;
 
@@ -18,7 +18,7 @@ export const updateAcademic = async (req: Request, res: Response) => {
           }),
     };
     const cv = await CVModel.findOneAndUpdate(
-      userId ? { userId } : { cvId },
+      userId ? { userId } : { _id: cvId },
       { $set: updateData },
       { new: true, upsert: true }
     );

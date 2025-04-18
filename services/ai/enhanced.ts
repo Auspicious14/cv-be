@@ -17,6 +17,7 @@ export class EnhancedAIService {
   static async enhanceContent(request: AIEnhancementRequest): Promise<{
     enhanced: string;
     suggestions: string[];
+    error: any;
   }> {
     const prompts = {
       experience: `Enhance this work experience description to be more impactful:
@@ -74,10 +75,11 @@ export class EnhancedAIService {
         suggestions: suggestions
           .map((s) => s.replace(/^- /, ""))
           .filter(Boolean),
+        error: null,
       };
     } catch (error) {
       console.error("AI enhancement error:", error);
-      return { enhanced: request.content, suggestions: [] };
+      return { enhanced: request.content, suggestions: [], error };
     }
   }
 

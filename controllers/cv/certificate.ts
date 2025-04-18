@@ -17,7 +17,7 @@ export const getCertificate = async (req: Request, res: Response) => {
 };
 
 export const updateCertificate = async (req: Request, res: Response) => {
-  const { certificate } = req.body;
+  const certificate = req.body;
   const { cvId } = req.params;
   const userId = (req as any).user?._id;
 

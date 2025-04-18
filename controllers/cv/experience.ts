@@ -3,7 +3,7 @@ import { handleErrors } from "../../middlewares/errorHandler";
 import CVModel from "../../models/cv";
 
 export const updateExperience = async (req: Request, res: Response) => {
-  const { experience } = req.body;
+  const experience = req.body;
   const { cvId } = req.params;
   const userId = (req as any).user?._id;
 

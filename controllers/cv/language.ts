@@ -17,13 +17,13 @@ export const getLanguage = async (req: Request, res: Response) => {
 };
 
 export const updateLanguage = async (req: Request, res: Response) => {
-  const { payload } = req.body;
+  const language = req.body;
   const { cvId } = req.params;
   const userId = (req as any).user?._id;
 
   try {
     const updateData = {
-      language: payload,
+      language,
       ...(userId
         ? { userId }
         : {

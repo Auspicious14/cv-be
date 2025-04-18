@@ -14,7 +14,7 @@ const CVSchema = new Schema(
     personalInformation: {
       firstName: { type: String, required: true },
       lastName: { type: String, required: true },
-      email: { type: String, required: true, unique: true, validate: isEmail },
+      email: { type: String, required: true, validate: isEmail },
       dateOfBirth: { type: String },
       description: { type: String },
       phoneNumber: { type: String },
@@ -41,7 +41,7 @@ const CVSchema = new Schema(
     ],
     academic: [
       {
-        school: { type: String },
+        institution: { type: String },
         degree: { type: String },
         course: { type: String },
         fromDate: { type: String },
@@ -52,8 +52,7 @@ const CVSchema = new Schema(
       {
         name: { type: String },
         year: { type: String },
-        school: { type: String },
-        description: { type: String },
+        institution: { type: String },
       },
     ],
     skill: [{ name: String }],

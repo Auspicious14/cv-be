@@ -17,7 +17,7 @@ export const getSkill = async (req: Request, res: Response) => {
 };
 
 export const updateSkill = async (req: Request, res: Response) => {
-  const { skill } = req.body;
+  const skill = req.body;
   const { cvId } = req.params;
   const userId = (req as any).user?._id;
 
