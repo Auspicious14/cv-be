@@ -3,10 +3,10 @@ import CVModel from "../../models/cv";
 import { handleErrors } from "../../middlewares/errorHandler";
 
 export const getCertificate = async (req: Request, res: Response) => {
-  const { userId } = req.params;
+  const { cvId } = req.params;
 
   try {
-    const cv = await CVModel.findOne({ userId });
+    const cv = await CVModel.findOne({ _id: cvId });
     if (!cv) return res.json({ success: false, message: "CV not found" });
 
     res.json({ success: true, data: cv.certificate });

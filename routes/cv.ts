@@ -11,6 +11,7 @@ import {
   createPersonalInfo,
   getPersonalInfo,
 } from "../controllers/cv/personal";
+import { getSkill, updateSkill } from "../controllers/cv/skill";
 
 const cvRoute = express.Router();
 
@@ -23,6 +24,8 @@ cvRoute.put("/cv/:cvId/certificate", updateCertificate);
 cvRoute.get("/cv/:cvId/certificate", getCertificate);
 cvRoute.put("/cv/:cvId/experience", updateExperience);
 cvRoute.get("/cv/:cvId/experience", getExperience);
+cvRoute.put("/cv/:cvId/skill", updateSkill);
+cvRoute.get("/cv/:cvId/skill", getSkill);
 cvRoute.get("/cv/:cvId", getCV);
 
 export default cvRoute;

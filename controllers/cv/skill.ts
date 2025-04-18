@@ -1,15 +1,29 @@
 import { Request, Response } from "express";
-import { handleErrors } from "../../middlewares/errorHandler";
 import CVModel from "../../models/cv";
+import { handleErrors } from "../../middlewares/errorHandler";
 
-export const updateExperience = async (req: Request, res: Response) => {
-  const { experience } = req.body;
+export const getSkill = async (req: Request, res: Response) => {
+  const { cvId } = req.params;
+
+  try {
+    const cv = await CVModel.findOne({ _id: cvId });
+    if (!cv) return res.json({ success: false, message: "CV not found" });
+
+    res.json({ success: true, data: cv.skill });
+  } catch (error) {
+    const errors = handleErrors(error);
+    res.json({ success: false, errors });
+  }
+};
+
+export const updateSkill = async (req: Request, res: Response) => {
+  const { skill } = req.body;
   const { cvId } = req.params;
   const userId = (req as any).user?._id;
 
   try {
     const updateData = {
-      experience,
+      skill,
       ...(userId
         ? { userId }
         : {
@@ -17,7 +31,6 @@ export const updateExperience = async (req: Request, res: Response) => {
             expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
           }),
     };
-
     const cv = await CVModel.findOneAndUpdate(
       userId ? { userId } : { _id: cvId },
       { $set: updateData },
@@ -28,20 +41,7 @@ export const updateExperience = async (req: Request, res: Response) => {
       return res.json({ success: false, message: "CV not found" });
     }
 
-    res.json({ success: true, data: cv?.experience });
-  } catch (error) {
-    const errors = handleErrors(error);
-    res.json({ success: false, errors });
-  }
-};
-export const getExperience = async (req: Request, res: Response) => {
-  const { cvId } = req.params;
-
-  try {
-    const cv = await CVModel.findOne({ _id: cvId });
-    if (!cv) return res.json({ success: false, message: "CV not found" });
-
-    res.json({ success: true, data: cv.experience });
+    res.json({ success: true, data: cv?.skill });
   } catch (error) {
     const errors = handleErrors(error);
     res.json({ success: false, errors });

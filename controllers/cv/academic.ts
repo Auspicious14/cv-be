@@ -31,10 +31,10 @@ export const updateAcademic = async (req: Request, res: Response) => {
 };
 
 export const getAcademic = async (req: Request, res: Response) => {
-  const { userId } = req.params;
+  const { cvId } = req.params;
 
   try {
-    const cv = await CVModel.findOne({ userId });
+    const cv = await CVModel.findOne({ _id: cvId });
     if (!cv) return res.json({ success: false, message: "CV not found" });
 
     res.json({ success: true, data: cv.academic });
