@@ -12,7 +12,7 @@ export const getCV = async (req: Request, res: Response) => {
   const id = userId || cvId;
 
   try {
-    const cv = await CVModel.findOne(id).select("-__v -_id -userId");
+    const cv = await CVModel.findOne({ _id: id }).select("-__v -_id -userId");
     if (!cv) return res.json({ success: false, message: "CV not found" });
 
     res.json({
