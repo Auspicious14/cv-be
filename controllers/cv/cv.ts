@@ -6,6 +6,11 @@ import fs from "fs";
 import path from "path";
 import hbs from "handlebars";
 
+hbs.registerHelper("dateFormat", (date: string, formatStr: string) =>
+  format(new Date(date), formatStr)
+);
+import { format } from "date-fns";
+
 export const getCV = async (req: Request, res: Response) => {
   const { cvId } = req.params;
   const userId = (req as any).user?._id;
