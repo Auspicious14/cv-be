@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .header {
+        background-color: #2c3e50;
+        color: white;
+        padding: 2rem;
+        text-align: center;
+      }
+      .section {
+        margin: 2rem 0;
+      }
+      .section-title {
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>
+        {{personalInformation.firstName}} {{personalInformation.lastName}}
+      </h1>
+      <p>{{personalInformation.email}} | {{personalInformation.phone}}</p>
+    </div>
+
+    <section>
+      <h2 class="section-title">Professional Summary</h2>
+      <p>{{personalInformation.summary}}</p>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      {{#each academic}}
+      <article>
+        <h3>{{degree}}</h3>
+        <p><strong>{{institution}}</strong></p>
+        <p>
+          {{dateFormat fromDate "MMM YYYY"}}–{{dateFormat toDate "MMM YYYY"}}
+        </p>
+        {{#if gpa}}
+        <p>GPA: {{gpa}}{{/if}}</p>
+      </article>
+
+      {{/each}}
+    </section>
+    <section>
+      <h2>Professional Experience</h2>
+      {{#each experience}}
+      <article>
+        <h3>{{jobTitle}}</h3>
+        <p><strong>{{company}}</strong> • {{location}}</p>
+        <p>
+          {{dateFormat fromDate "MMM YYYY"}}–{{dateFormat toDate "MMM YYYY"}}
+        </p>
+        <ul>
+          {{#each achievements}}
+          <li>{{this}}</li>
+          {{/each}}
+        </ul>
+      </article>
+      {{/each}}
+    </section>
+    <section>
+      <h2 class="section-title">Certifications</h2>
+      {{#each certificates}}
+      <article>
+        <h3>{{name}}</h3>
+        <p><strong>{{issuer}}</strong> • {{formatDate date}}</p>
+        {{#if credentialID}}
+        <p>Credential ID: {{credentialID}}{{/if}}</p>
+      </article>
+
+      {{/each}}
+    </section>
+
+    <section>
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid">
+        {{#each skills}}
+        <div class="skill-item">
+          <h4>{{name}}</h4>
+          <!-- <ul>
+            {{#each items}}
+            <li>{{this}}</li>
+            {{/each}}
+          </ul> -->
+        </div>
+        {{/each}}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Languages</h2>
+      {{#each languages}}
+      <div class="language-item">
+        <p><strong>{{name}}</strong></p>
+      </div>
+      {{/each}}
+    </section>
+  </body>
+</html>

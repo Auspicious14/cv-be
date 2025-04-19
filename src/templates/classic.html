@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: "Times New Roman", serif;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .header {
+        text-align: center;
+        margin: 2rem 0;
+      }
+      .section {
+        margin: 1.5rem 0;
+      }
+      .section-title {
+        font-weight: bold;
+        border-bottom: 1px solid #333;
+      }
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .skill-item {
+        background: #f5f5f5;
+        padding: 1rem;
+        border-radius: 4px;
+      }
+
+      .skill-item h4 {
+        margin: 0 0 0.5rem 0;
+        color: #2c3e50;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>
+        {{personalInformation.firstName}} {{personalInformation.lastName}}
+      </h1>
+      <p>{{personalInformation.address}}</p>
+      <p>{{personalInformation.email}} | {{personalInformation.phoneNumber}}</p>
+    </div>
+
+    <section>
+      <h2 class="section-title">Professional Summary</h2>
+      <p>{{personalInformation.description}}</p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Education</h2>
+      {{#each academic}}
+      <article>
+        <h3>{{degree}}</h3>
+        <p><strong>{{institution}}</strong></p>
+        <p>
+          {{dateFormat fromDate "MMM YYYY"}} – {{dateFormat toDate "MMM YYYY"}}
+        </p>
+        {{#if honors}}
+        <p>Honors: {{honors}}{{/if}}</p>
+      </article>
+
+      {{/each}}
+    </section>
+
+    <section>
+      <h2 class="section-title">Professional Experience</h2>
+      {{#each experience}}
+      <article>
+        <h3>{{jobTitle}}</h3>
+        <p><strong>{{company}}</strong> • {{location}}</p>
+        <p>
+          {{dateFormat fromDate "MMM YYYY"}} – {{dateFormat toDate "MMM YYYY"}}
+        </p>
+        <p>{{description}}</p>
+      </article>
+      {{/each}}
+    </section>
+
+    <section>
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skills-grid">
+        {{#each skills}}
+        <div class="skill-item">
+          <h4>{{name}}</h4>
+        </div>
+        {{/each}}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Certifications</h2>
+      {{#each certificates}}
+      <article>
+        <h3>{{name}}</h3>
+        <p><strong>{{issuer}}</strong> • {{formatDate date}}</p>
+        {{#if credentialID}}
+        <p>Credential ID: {{credentialID}}</p>
+        {{/if}}
+      </article>
+      {{/each}}
+    </section>
+
+    <section>
+      <h2 class="section-title">Languages</h2>
+      {{#each languages}}
+      <div class="language-item">
+        <p><strong>{{name}}</strong></p>
+      </div>
+      {{/each}}
+    </section>
+  </body>
+</html>

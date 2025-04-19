@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getCV } from "../controllers/cv/cv";
+import { generatePDF, getCV } from "../controllers/cv/cv";
 import { getAcademic, updateAcademic } from "../controllers/cv/academic";
 import {
   getCertificate,
@@ -30,5 +30,6 @@ cvRoute.get("/cv/:cvId/skill", getSkill);
 cvRoute.put("/cv/:cvId/language", updateLanguage);
 cvRoute.get("/cv/:cvId/language", getLanguage);
 cvRoute.get("/cv/:cvId", getCV);
+cvRoute.post("/cv/generate", generatePDF);
 
 export default cvRoute;
