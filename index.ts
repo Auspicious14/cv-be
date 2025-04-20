@@ -14,6 +14,7 @@ appRoute.use(
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     methods: ["GET", "POST", "PUT", "DELETE"],
+    exposedHeaders: ["Content-Disposition"],
   })
 );
 

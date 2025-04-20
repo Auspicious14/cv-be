@@ -47,8 +47,9 @@ export const generatePDF = async (req: Request, res: Response) => {
 
     const templatePath = path.join(
       __dirname,
-      `../../src/templates/${template}.html`
+      `../../src/templates/${template.toLowerCase()}.html`
     );
+
     if (!fs.existsSync(templatePath)) {
       return res
         .status(400)
@@ -68,7 +69,9 @@ export const generatePDF = async (req: Request, res: Response) => {
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader(
       "Content-Disposition",
-      `attachment; filename=${cv.personalInformation?.firstName}.pdf`
+      `attachment; filename="${encodeURIComponent(
+        cv.personalInformation?.firstName || "cv"
+      )}.pdf"`
     );
     res.send(pdfBuffer);
   } catch (error) {
