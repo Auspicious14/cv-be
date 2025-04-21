@@ -73,7 +73,7 @@
       {{#each certificate}}
       <article>
         <h3>{{name}}</h3>
-        <p><strong>{{issuer}}</strong> • {{formatDate date}}</p>
+        <p><strong>{{issuer}}</strong> • {{dateFormat year "MMM yyyy" }}</p>
         {{#if credentialID}}
         <p>Credential ID: {{credentialID}}{{/if}}</p>
       </article>
