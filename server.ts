@@ -20,13 +20,8 @@ const exphbs = engine({
 mongoose
   .connect(URI)
   .then(() =>
-    {
-      if (process.env.NODE_ENV !== 'production') {
-  app.listen(port, () => console.log(`server is istening on ${port}`));
-      }
-    }
+    app.listen(port, () => console.log(`server is istening on ${port}`))
   )
   .catch((err: any) => console.log(err));
 
 app.use(appRoute);
-module.exports = app
