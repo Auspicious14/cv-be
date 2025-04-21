@@ -17,7 +17,7 @@ appRoute.use(
     exposedHeaders: ["Content-Disposition"],
   })
 );
-
+console.log("ENV:", process.env.CLIENT_URL)
 appRoute.use(express.json({ limit: "50mb" }));
 appRoute.use(express.urlencoded({ limit: "50mb", extended: true }));
 appRoute.use(cookieParser());
