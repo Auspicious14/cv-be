@@ -73,7 +73,8 @@ export const generatePDF = async (req: Request, res: Response) => {
         cv.personalInformation?.firstName || "cv"
       )}.pdf"`
     );
-    res.send(pdfBuffer);
+
+    res.end(pdfBuffer);
   } catch (error) {
     const errors = handleErrors(error);
     res.status(500).json({ success: false, errors });
