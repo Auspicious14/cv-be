@@ -1,7 +1,7 @@
 import express from "express";
 import { engine } from "express-handlebars";
 import { format } from "date-fns";
-imoort dotenv from "dotenv";
+import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { appRoute } from "./index";
 
@@ -22,11 +22,11 @@ mongoose
   .then(() =>
     {
       if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => console.log(`server is istening on ${PORT}`));
+  app.listen(port, () => console.log(`server is istening on ${port}`));
       }
     }
   )
   .catch((err: any) => console.log(err));
 
 app.use(appRoute);
-modules.export = app
+module.exports = app
