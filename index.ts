@@ -10,7 +10,7 @@ import aiSuggestionRouter from "./routes/suggestion";
 
 appRoute.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: "https://cv-craft-silk.vercel.app" || "http://localhost:3000",
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     methods: ["GET", "POST", "PUT", "DELETE"],
