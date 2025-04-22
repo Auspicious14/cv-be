@@ -8,13 +8,23 @@ import router from "./routes/auth";
 import cvRouter from "./routes/cv";
 import aiSuggestionRouter from "./routes/suggestion";
 
-const allowedOrigins = [process.env.CLIENT_URL || "http://localhost:3000"];
+const allowedOrigins = process.env.CLIENT_URL
+  ? process.env.CLIENT_URL.split(",").map((url) => url.trim())
+  : ["http://localhost:3000"];
+
+console.log("CORS Allowed Origins:", allowedOrigins);
+
 appRoute.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      console.log("Incoming origin:", origin);
+      if (
+        !origin ||
+        allowedOrigins.some((allowed) => origin.startsWith(allowed))
+      ) {
         callback(null, true);
       } else {
+        console.warn("Blocked by CORS:", origin);
         callback(new Error("Not allowed by CORS"));
       }
     },
