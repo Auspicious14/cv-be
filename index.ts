@@ -8,9 +8,16 @@ import router from "./routes/auth";
 import cvRouter from "./routes/cv";
 import aiSuggestionRouter from "./routes/suggestion";
 
+const allowedOrigins = [process.env.CLIENT_URL || "http://localhost:3000"];
 appRoute.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     methods: ["GET", "POST", "PUT", "DELETE"],
