@@ -57,9 +57,12 @@ const CVSchema = new Schema(
     ],
     skill: [{ name: String }],
     language: [{ name: String }],
+    expiresAt: { type: Date, required: true },
+
   },
   { timestamps: true }
 );
+CVSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 const CVModel = mongoose.model("cv", CVSchema);
 export default CVModel;
