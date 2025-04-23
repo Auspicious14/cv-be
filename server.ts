@@ -17,18 +17,13 @@ const exphbs = engine({
   },
 });
 
-// Database connection and server start
-const startServer = async () => {
-  try {
-    await mongoose.connect(URI);
-    app.use(appRoute);
-    app.listen(port, () => console.log(`Server listening on ${port}`));
-  } catch (err) {
-    console.error("Failed to start:", err);
-    process.exit(1);
-  }
-};
+mongoose
+  .connect(URI)
+  .then(() =>
+    app.listen(port, () => console.log(`server is istening on ${port}`))
+  )
+  .catch((err: any) => console.log(err));
 
-startServer();
+app.use(appRoute);
 
 export default app;
