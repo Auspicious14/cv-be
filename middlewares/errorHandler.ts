@@ -3,12 +3,15 @@ import mongoose from "mongoose";
 export const handleErrors = (error: any) => {
   const errors: Record<string, string> = {};
 
+
   if (
-    error.code === 11000 &&
-    (error.keyPattern?.email || error.keyPattern?.personalInformation.email)
-  ) {
-    errors.message = "Email already registered";
-    return errors;
+  error.code === 11000 &&
+  (error.keyPattern?.email ||
+    (error.keyPattern?.personalInformation &&
+     error.keyPattern.personalInformation.email))
+) {
+  errors.message = "Email already registered";
+  return errors;
   }
 
   if (error.code === 11000 && error.keyPattern?.userId) {
