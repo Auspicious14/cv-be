@@ -30,6 +30,7 @@ export const updateExperience = async (req: Request, res: Response) => {
 
     res.json({ success: true, data: cv?.experience });
   } catch (error) {
+    console.log({error})
     const errors = handleErrors(error);
     res.json({ success: false, errors });
   }
