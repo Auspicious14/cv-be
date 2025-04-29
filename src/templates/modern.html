@@ -3,9 +3,9 @@
   <head>
     <style>
       body {
-        font-family: Arial, sans-serif;
+        font-family: Times New Roman, serif;
         max-width: 800px;
-        margin: 0 auto;
+        margin: 0 2rem;
       }
       .header {
         background-color: #2c3e50;
@@ -28,12 +28,12 @@
       <h1>
         {{personalInformation.firstName}} {{personalInformation.lastName}}
       </h1>
-      <p>{{personalInformation.email}} | {{personalInformation.phone}}</p>
+      <p>{{personalInformation.email}} | {{personalInformation.phoneNumber}}</p>
     </div>
 
     <section>
       <h2 class="section-title">Professional Summary</h2>
-      <p>{{personalInformation.summary}}</p>
+      <p>{{personalInformation.description}}</p>
     </section>
 
     <section>
@@ -60,11 +60,7 @@
         <p>
           {{dateFormat fromDate "MMM yyyy"}}–{{dateFormat toDate "MMM yyyy"}}
         </p>
-        <ul>
-          {{#each achievements}}
-          <li>{{this}}</li>
-          {{/each}}
-        </ul>
+        <p>{{description}}</p>
       </article>
       {{/each}}
     </section>

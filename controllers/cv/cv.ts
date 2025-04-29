@@ -39,7 +39,8 @@ export const getCV = async (req: Request, res: Response) => {
 
 export const generatePDF = async (req: Request, res: Response) => {
   const { cvId, template } = req.body;
-
+console.log({cvId, template})
+console.log('request body: ', req.body)
   try {
     const cv = await CVModel.findById(cvId);
     if (!cv)
@@ -76,6 +77,7 @@ export const generatePDF = async (req: Request, res: Response) => {
 
     res.end(pdfBuffer);
   } catch (error) {
+    console.log({error})
     const errors = handleErrors(error);
     res.status(500).json({ success: false, errors });
   }
